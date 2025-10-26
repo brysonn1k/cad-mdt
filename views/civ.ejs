@@ -1,0 +1,44 @@
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Civilian</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/dashboard">Back</a>
+      <span>Civilian Characters</span>
+      <form method="post" action="/logout" style="display:inline"><button>Logout</button></form>
+    </nav>
+  </header>
+
+  <main class="grid-1">
+    <section class="card">
+      <h2>Create Character</h2>
+      <form method="post" action="/civ">
+        <label>Name <input name="name" required></label>
+        <label>DOB <input name="dob" type="date"></label>
+        <label>Address <input name="address"></label>
+        <label>Notes <textarea name="notes"></textarea></label>
+        <button>Create</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>My Characters</h2>
+      <table>
+        <thead><tr><th>Name</th><th>DOB</th><th>Address</th><th>Notes</th></tr></thead>
+        <tbody>
+          <% chars.forEach(c => { %>
+            <tr><td><%= c.name %></td><td><%= c.dob || '' %></td><td><%= c.address || '' %></td><td><%= c.notes || '' %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

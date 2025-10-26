@@ -1,0 +1,89 @@
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    async function refresh() {
+      const [calls, units] = await Promise.all([fetch('/api/calls').then(r=>r.json()), fetch('/api/units').then(r=>r.json())]);
+      document.getElementById('calls').innerHTML = calls.map(c => `<tr>
+        <td>${c.id}</td><td>${c.type}</td><td>${c.description}</td><td>${c.location||''}</td><td>${c.status}</td></tr>`).join('');
+      document.getElementById('units').innerHTML = units.map(u => `<tr>
+        <td>${u.callsign}</td><td>${u.department}</td><td>${u.status}</td><td>${u.location||''}</td></tr>`).join('');
+    }
+    setInterval(refresh, 5000);
+    window.onload = refresh;
+  </script>
+</head>
+<body>
+  <header>
+    <nav>
+      <span>Logged in as <strong><%= user.username %></strong> (<%= user.role %>)</span>
+      <a href="/dashboard">Dashboard</a>
+      <% if (['DISPATCH','ADMIN'].includes(user.role)) { %><a href="/dispatch">Dispatch</a><% } %>
+      <% if (['CIVILIAN','ADMIN'].includes(user.role)) { %><a href="/civ">Civilian</a><% } %>
+      <% if (['OFFICER','FIREEMS','ADMIN'].includes(user.role)) { %><a href="/reports/new">New Report</a><% } %>
+      <form method="post" action="/logout" style="display:inline"><button>Logout</button></form>
+    </nav>
+  </header>
+
+  <main class="grid-2">
+    <section class="card">
+      <h2>Create 911 Call</h2>
+      <form method="post" action="/calls">
+        <label>Type <input name="type" placeholder="Robbery / MVA / Medical" required></label>
+        <label>Description <textarea name="description" required></textarea></label>
+        <label>Caller Name <input name="caller_name"></label>
+        <label>Caller Phone <input name="caller_phone"></label>
+        <label>Location <input name="location"></label>
+        <button>Create Call</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>BOLOs</h2>
+      <form method="post" action="/bolos">
+        <label>Type
+          <select name="type">
+            <option>PERSON</option>
+            <option>VEHICLE</option>
+          </select>
+        </label>
+        <label>Details <textarea name="details" required></textarea></label>
+        <button>Add BOLO</button>
+      </form>
+      <table>
+        <thead><tr><th>ID</th><th>Type</th><th>Details</th><th></th></tr></thead>
+        <tbody>
+          <% bolos.forEach(b => { %>
+            <tr><td><%= b.id %></td><td><%= b.type %></td><td><%= b.details %></td>
+            <td>
+              <form method="post" action="/bolos/<%= b.id %>/delete"><button>Delete</button></form>
+            </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Recent Calls</h2>
+      <table>
+        <thead><tr><th>ID</th><th>Type</th><th>Description</th><th>Location</th><th>Status</th></tr></thead>
+        <tbody id="calls"></tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Units</h2>
+      <table>
+        <thead><tr><th>Callsign</th><th>Dept</th><th>Status</th><th>Location</th></tr></thead>
+        <tbody id="units"></tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

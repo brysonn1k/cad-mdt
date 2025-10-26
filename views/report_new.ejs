@@ -1,0 +1,36 @@
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New Report</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/dashboard">Back</a>
+      <span>New Report</span>
+      <form method="post" action="/logout" style="display:inline"><button>Logout</button></form>
+    </nav>
+  </header>
+
+  <main class="grid-1">
+    <section class="card">
+      <form method="post" action="/reports">
+        <label>Type
+          <select name="type" required>
+            <option>CITATION</option>
+            <option>ARREST</option>
+            <option>INCIDENT</option>
+          </select>
+        </label>
+        <label>Subject Name <input name="subject_name"></label>
+        <label>Details <textarea name="details" required></textarea></label>
+        <button>Save Report</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

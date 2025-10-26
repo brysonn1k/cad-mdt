@@ -1,0 +1,20 @@
+{
+  "name": "cad-mdt-starter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "NODE_ENV=production node server.js",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.19.2",
+    "express-session": "^1.17.3",
+    "method-override": "^3.0.0",
+    "sqlite3": "^5.1.7",
+    "uuid": "^9.0.1",
+    "ejs": "^3.1.10"
+  }
+}
