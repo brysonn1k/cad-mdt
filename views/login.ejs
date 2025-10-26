@@ -1,11 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login • CAD/MDT</title>
+  <link rel="stylesheet" href="/style.css?v=3"><!-- cache-bust -->
+</head>
 <body>
   <div class="container">
     <div class="card">
       <h1 style="margin:0 0 .4rem">IMPERIAL-STYLE CAD</h1>
       <p style="color:#9fb0d6;margin-top:0">Secure sign in</p>
       <% if (error) { %><div class="alert"><%= error %></div><% } %>
-      <!-- existing login form here -->
+
+      <!-- REAL login form -->
+      <form method="post" action="/login">
+        <label>Username <input name="username" required></label>
+        <label>Password <input name="password" type="password" required></label>
+        <button type="submit">Login</button>
+      </form>
     </div>
-    <!-- keep the details/register block as is -->
+
+    <details class="card">
+      <summary>Create account</summary>
+      <form method="post" action="/register">
+        <label>Username <input name="username" required></label>
+        <label>Password <input name="password" type="password" required></label>
+        <label>Role
+          <select name="role" required>
+            <option value="CIVILIAN">Civilian</option>
+            <option value="OFFICER">Officer</option>
+            <option value="FIREEMS">Fire/EMS</option>
+            <option value="DISPATCH">Dispatch</option>
+          </select>
+        </label>
+        <button type="submit">Register</button>
+      </form>
+      <p style="color:#9fb0d6">Demo: admin/admin123, dispatch/dispatch123, officer1/officer123, fire1/fire123, civ1/civ123</p>
+    </details>
   </div>
 </body>
+</html>
