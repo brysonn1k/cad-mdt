@@ -1,39 +1,11 @@
-
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CAD/MDT Login</title>
-  <link rel="stylesheet" href="/style.css">
-</head>
 <body>
   <div class="container">
-    <h1>CAD/MDT</h1>
-    <% if (error) { %><div class="alert"><%= error %></div><% } %>
-    <form method="post" action="/login" class="card">
-      <label>Username <input name="username" required></label>
-      <label>Password <input name="password" type="password" required></label>
-      <button type="submit">Login</button>
-    </form>
-
-    <details class="card">
-      <summary>Create account</summary>
-      <form method="post" action="/register">
-        <label>Username <input name="username" required></label>
-        <label>Password <input name="password" type="password" required></label>
-        <label>Role
-          <select name="role" required>
-            <option value="CIVILIAN">Civilian</option>
-            <option value="OFFICER">Officer</option>
-            <option value="FIREEMS">Fire/EMS</option>
-            <option value="DISPATCH">Dispatch</option>
-          </select>
-        </label>
-        <button type="submit">Register</button>
-      </form>
-      <p>Demo users: admin/admin123, dispatch/dispatch123, officer1/officer123, fire1/fire123, civ1/civ123</p>
-    </details>
+    <div class="card">
+      <h1 style="margin:0 0 .4rem">IMPERIAL-STYLE CAD</h1>
+      <p style="color:#9fb0d6;margin-top:0">Secure sign in</p>
+      <% if (error) { %><div class="alert"><%= error %></div><% } %>
+      <!-- existing login form here -->
+    </div>
+    <!-- keep the details/register block as is -->
   </div>
 </body>
-</html>
